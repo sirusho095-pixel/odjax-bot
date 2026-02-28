@@ -24,7 +24,7 @@ ADMIN_IDS = {777849214}  # <-- ЗАМЕНИ НА СВОЙ ID
 TZ = ZoneInfo("Europe/Moscow")  # Ярославль = МСК
 
 # 🏆 Розыгрыш можно проводить только после 06.03.2026 18:00 (МСК)
-DRAW_ALLOWED_FROM = datetime(2025, 1, 1, 0, 0, 0, tzinfo=TZ)
+DRAW_ALLOWED_FROM = datetime(2026, 3, 6, 18, 0, 0, tzinfo=TZ)
 
 DAYS_90 = 90
 CERT_AMOUNT = 1500
