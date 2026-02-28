@@ -19,7 +19,7 @@ if not API_TOKEN:
     raise RuntimeError("BOT_TOKEN is not set")
 
 # ✅ Впиши сюда свой Telegram ID (узнай через @userinfobot)
-ADMIN_IDS = {123456789}  # <-- ЗАМЕНИ НА СВОЙ ID
+ADMIN_IDS = {777849214}  # <-- ЗАМЕНИ НА СВОЙ ID
 
 TZ = ZoneInfo("Europe/Moscow")  # Ярославль = МСК
 
