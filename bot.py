@@ -153,3 +153,6 @@ async def reset(message: types.Message):
 
 if __name__ == "__main__":
     executor.start_polling(dp, skip_updates=True)
+@dp.message_handler(commands=["id"])
+async def my_id(message: types.Message):
+    await message.answer(f"Ваш Telegram ID: {message.from_user.id}")
