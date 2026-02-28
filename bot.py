@@ -31,8 +31,9 @@ CERT_AMOUNT = 1500
 PROMO = "ODJAX15"
 
 # Файл шаблона сертификата (должен лежать в репозитории рядом с bot.py)
-CERT_TEMPLATE_PATH = "certificate_template.png"
-
+import os
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+CERT_TEMPLATE_PATH = os.path.join(BASE_DIR, "certificate_template.png")
 # Координаты для текста на сертификате (подгонишь один раз под свой макет)
 # (x, y) в пикселях
 NAME_POS = (120, 680)        # "Получатель: ..."
