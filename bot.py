@@ -2,6 +2,7 @@ import logging
 import sqlite3
 import random
 import os
+import io
 from datetime import datetime, time
 from zoneinfo import ZoneInfo
 
@@ -93,6 +94,35 @@ async def participate(message: types.Message):
 
 @dp.message_handler(commands=["count"])
 async def count(message: types.Message):
+    @dp.message_handler(commands=["export"])
+async def export(message: types.Message):
+    if message.from_user.id not in ADMIN_IDS:
+        return
+
+    cursor.execute("SELECT user_id, username, joined_at FROM participants ORDER BY joined_at ASC")
+    rows = cursor.fetchall()
+
+    if not rows:
+        await message.answer("Участников нет.")
+        return
+
+    output = io.StringIO()
+    output.write("user_id,username,joined_at_msk,discount_until\n")
+
+    for user_id, username, joined_at_str in rows:
+        joined_at_dt = datetime.fromisoformat(joined_at_str)
+        discount_until = (joined_at_dt + timedelta(days=DAYS_90)).strftime("%d.%m.%Y")
+        joined_human = joined_at_dt.strftime("%d.%m.%Y %H:%M")
+        safe_username = (username or "").replace(",", " ")
+        output.write(f"{user_id},{safe_username},{joined_human},{discount_until}\n")
+
+    data = output.getvalue().encode("utf-8")
+    output.close()
+
+    await message.answer_document(
+        types.InputFile(io.BytesIO(data), filename="odjax_participants.csv"),
+        caption=f"Выгрузка участников: {len(rows)} чел."
+    )
     if message.from_user.id not in ADMIN_IDS:
         return
     cursor.execute("SELECT COUNT(*) FROM participants")
