@@ -178,7 +178,7 @@ async def participate(message: types.Message):
             "🎁 Ваша скидка: **15%** (самовывоз и зал)\n"
             f"Срок действия скидки: **до {discount_until} включительно**\n"
             f"Промокод: **{PROMO}**\n\n"
-            f"🏆 Главный приз (**{CERT_AMOUNT} ₽**) разыграем 06.03.2026 в 18:00 (МСК).",
+            f"🏆 Главный приз (**{CERT_AMOUNT} ₽**) разыграем 07.03.2026 в 18:00 (МСК).",
             parse_mode="Markdown"
         )
         return
