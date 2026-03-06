@@ -23,7 +23,7 @@ ADMIN_IDS = {777849214}  # <-- ЗАМЕНИ НА СВОЙ ID
 
 TZ = ZoneInfo("Europe/Moscow")  # Ярославль = МСК
 
-# 🏆 Розыгрыш можно проводить только после 06.03.2026 18:00 (МСК)
+# 🏆 Розыгрыш можно проводить только после 07.03.2026 18:00 (МСК)
 DRAW_ALLOWED_FROM = datetime(2026, 3, 7, 19, 0, 0, tzinfo=TZ)
 
 DAYS_90 = 90
@@ -289,7 +289,7 @@ async def draw(message: types.Message):
 
     now = now_msk()
     if now < DRAW_ALLOWED_FROM:
-        await message.answer("⛔ Розыгрыш будет доступен 06.03.2026 в 18:00 (МСК).")
+        await message.answer("⛔ Розыгрыш будет доступен 07.03.2026 в 18:00 (МСК).")
         return
 
     cursor.execute("SELECT winner_id, drawn_at FROM giveaway_state WHERE id=1")
