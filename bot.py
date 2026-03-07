@@ -379,10 +379,6 @@ async def reset(message: types.Message):
     cursor.execute("UPDATE giveaway_state SET winner_id=NULL, drawn_at=NULL WHERE id=1")
     conn.commit()
     await message.answer("Список участников и результат розыгрыша очищены ✅")
-
-
-if __name__ == "__main__":
-    executor.start_polling(dp, skip_updates=True)
 @dp.message_handler(commands=["restore"])
 async def restore_participants(message: types.Message):
     import csv
@@ -409,3 +405,6 @@ async def restore_participants(message: types.Message):
 
     except Exception as e:
         await message.answer(f"Ошибка восстановления: {e}")
+
+if __name__ == "__main__":
+    executor.start_polling(dp, skip_updates=True)
