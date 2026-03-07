@@ -383,3 +383,29 @@ async def reset(message: types.Message):
 
 if __name__ == "__main__":
     executor.start_polling(dp, skip_updates=True)
+@dp.message_handler(commands=["restore"])
+async def restore_participants(message: types.Message):
+    import csv
+
+    restored = 0
+
+    try:
+        with open("odjax_participants.csv", "r", encoding="utf-8") as f:
+            reader = csv.DictReader(f)
+
+            for row in reader:
+                user_id = int(row["user_id"])
+                username = row.get("username", "")
+
+                cursor.execute(
+                    "INSERT OR IGNORE INTO participants (user_id, username, joined_at) VALUES (?, ?, ?)",
+                    (user_id, username, now_msk().isoformat())
+                )
+                restored += 1
+
+        conn.commit()
+
+        await message.answer(f"✅ Восстановлено участников: {restored}")
+
+    except Exception as e:
+        await message.answer(f"Ошибка восстановления: {e}")
